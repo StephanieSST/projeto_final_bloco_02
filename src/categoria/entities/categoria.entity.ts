@@ -1,5 +1,6 @@
 import { IsNotEmpty } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Produto } from "../../produto/entities/produto.entity";
 
 @Entity({name: 'tb_categorias'})
 export class Categoria {
@@ -10,4 +11,10 @@ export class Categoria {
     @IsNotEmpty()
     @Column({length: 255, nullable: false})
     tipo: string;
+
+    @Column({length: 5000, nullable: false})
+    foto: string;
+
+    @OneToMany(() => Produto, (produto) => produto.categoria)
+    produto: Produto[];
 }
